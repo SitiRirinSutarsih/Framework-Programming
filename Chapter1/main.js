@@ -46,5 +46,5 @@ app.post('/mahasiswa', async(req, res) =>{
 });
 
 app.listen(port, () => {
-    console.log('example app listening on port : ' + port);
+    console.log(`server is running at http://localhost:${port}`);
 });

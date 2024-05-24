@@ -12,7 +12,7 @@ module.exports = {
             if (exist) {
                 res.status(400).json({
                     status: false,
-                    message: 'Data Sudah Ada Di Database',
+                    message: 'Data Sudah Ada',
                     data: exist
                 });
                 return;

@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model product{
+  id Int @id @default(autoincrement())
+  nama_product String @db.VarChar(100)
+  harga Int
+  stok Int
+  detail_transaction detail_transaction[]
+}
+
+model customer{
+  id Int @id @default(autoincrement())
+  nama_customer String @db.VarChar(100)
+  alamat String @db.Text()
+  jenis_kelamin Role
+  umur Int
+  transaction transaction[]
+}
+
+enum Role{
+  Laki_laki
+  Perempuan
+}
+
+model transaction{
+  id Int @id @default(autoincrement())
+  id_customer Int
+  total_pembelian Int
+  customer customer @relation(fields: [id_customer], references: [id])
+  detail_transaction detail_transaction[]
+}
+
+model detail_transaction{
+  id Int @id @default(autoincrement())
+  id_transaction Int
+  id_product Int
+  jumlah Int
+  transaction transaction @relation(fields: [id_transaction], references: [id])
+  product product @relation(fields: [id_product], references: [id])
+}
